@@ -3,7 +3,7 @@
 buildscript {
 
     ext {
-      kotlin_version = '1.9.0'
+      kotlin_version = '1.9.24'  // JVM 21 지원
     }
   repositories {
         google()
