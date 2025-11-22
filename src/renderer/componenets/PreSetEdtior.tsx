@@ -349,11 +349,10 @@ export const CharacterReferenceEditor = observer(({ disabled }: CharacterReferen
     if (!reference) return;
     const path = await imageService.storeReferenceImage(curSession!, reference);
     getField().push(
-      ReferenceItem.fromJSON({ 
-        path: path, 
-        info: 1.0, 
-        strength: 1.0,
-        description: 'character'
+      ReferenceItem.fromJSON({
+        path: path,
+        fidelity: 1.0,        // 기본값: 최대 충실도
+        styleAware: true      // 기본값: 스타일 포함
       }),
     );
   };
@@ -382,7 +381,7 @@ export const CharacterReferenceEditor = observer(({ disabled }: CharacterReferen
                         'whitespace-nowrap flex-none mr-auto md:mr-0 gray-label'
                       }
                     >
-                      정보 추출률 (IE):
+                      충실도 (Fidelity):
                     </div>
                     <div className="flex flex-1 md:w-auto w-full gap-1">
                       <input
@@ -391,40 +390,14 @@ export const CharacterReferenceEditor = observer(({ disabled }: CharacterReferen
                         step="0.01"
                         min="0"
                         max="1"
-                        value={reference.info}
+                        value={reference.fidelity}
                         onChange={(e) => {
-                          reference.info = parseFloat(e.target.value);
+                          reference.fidelity = parseFloat(e.target.value);
                         }}
                         disabled={disabled}
                       />
                       <div className="w-11 flex-none text-lg text-center back-lllgray">
-                        {reference.info}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex w-full md:flex-row flex-col items-center">
-                    <div
-                      className={
-                        'whitepace-nowrap flex-none mr-auto md:mr-0 gray-label'
-                      }
-                    >
-                      레퍼런스 강도 (RS):
-                    </div>
-                    <div className="flex flex-1 md:w-auto w-full gap-1">
-                      <input
-                        className="flex-1"
-                        type="range"
-                        step="0.01"
-                        min="0"
-                        max="1"
-                        value={reference.strength}
-                        onChange={(e) => {
-                          reference.strength = parseFloat(e.target.value);
-                        }}
-                        disabled={disabled}
-                      />
-                      <div className="w-11 flex-none text-lg text-center back-lllgray">
-                        {reference.strength}
+                        {reference.fidelity.toFixed(2)}
                       </div>
                     </div>
                   </div>
@@ -432,13 +405,13 @@ export const CharacterReferenceEditor = observer(({ disabled }: CharacterReferen
                     <div className="flex gap-2 items-center">
                       <input
                         type="checkbox"
-                        checked={reference.description === 'character&style'}
+                        checked={reference.styleAware}
                         onChange={(e) => {
-                          reference.description = e.target.checked ? 'character&style' : 'character';
+                          reference.styleAware = e.target.checked;
                         }}
                         disabled={disabled}
                       />
-                      <span className="gray-label">스타일 반영</span>
+                      <span className="gray-label">스타일 반영 (Style Aware)</span>
                     </div>
                   </div>
                   <div className="flex-none flex ml-auto mt-auto">

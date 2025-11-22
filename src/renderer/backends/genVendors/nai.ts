@@ -201,19 +201,26 @@ export class NovelAiImageGenService implements ImageGenService {
     if (params.characterReferences?.length) {
       body.parameters.director_reference_images = [];
       body.parameters.director_reference_descriptions = [];
-      body.parameters.director_reference_strength_values = [];
+      body.parameters.director_reference_strengths = [];
+      body.parameters.director_reference_secondary_strengths = [];
       body.parameters.director_reference_information_extracted = [];
       for (const ref of params.characterReferences) {
         body.parameters.director_reference_images.push(ref.image);
         body.parameters.director_reference_descriptions.push({
           caption: {
-            base_caption: ref.description,
+            base_caption: ref.styleAware ? "character&style" : "character",
             char_captions: [],
           },
-          legacy_uc: params.legacyPromptConditioning,
+          use_coords: false,
+          use_order: false,
+          legacy_uc: false,
         });
-        body.parameters.director_reference_strength_values.push(ref.strength);
-        body.parameters.director_reference_information_extracted.push(ref.info);
+        // Primary strength는 항상 1
+        body.parameters.director_reference_strengths.push(1);
+        // Secondary strength = 1 - fidelity
+        body.parameters.director_reference_secondary_strengths.push(1 - ref.fidelity);
+        // Information extracted는 항상 1
+        body.parameters.director_reference_information_extracted.push(1);
       }
     }
     if (params.image) {

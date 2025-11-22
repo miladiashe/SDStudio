@@ -311,9 +311,8 @@ class GenerateImageTaskHandler implements TaskHandler {
           image: dataUriToBase64(
             await imageService.fetchReferenceImage(task.params.session, ref.path) || '',
           ),
-          info: ref.info,
-          strength: ref.strength,
-          description: ref.description,
+          fidelity: ref.fidelity,
+          styleAware: ref.styleAware,
         }))
       );
     const resol = job.overrideResolution
