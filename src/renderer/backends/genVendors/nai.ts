@@ -213,7 +213,7 @@ export class NovelAiImageGenService implements ImageGenService {
           },
           use_coords: false,
           use_order: false,
-          legacy_uc: false,
+          legacy_uc: params.legacyPromptConditioning,
         });
         // Primary strength는 항상 1
         body.parameters.director_reference_strength_values.push(1);
