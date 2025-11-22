@@ -100,9 +100,8 @@ export interface Vibe {
 
 export interface CharacterReference {
   image: string;
-  info: number;
-  strength: number;
-  description: string;
+  fidelity: number;      // 0.0 ~ 1.0 (충실도)
+  styleAware: boolean;   // true = "character&style", false = "character"
 }
 
 export interface ImageSize {

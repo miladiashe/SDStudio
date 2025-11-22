@@ -630,16 +630,14 @@ export interface CharacterPosition {
 
 export interface IReferenceItem {
   path: string;
-  info: number;
-  strength: number;
-  description: string;
+  fidelity: number;      // 0.0 ~ 1.0 (충실도)
+  styleAware: boolean;   // true = "character&style", false = "character"
 }
 
 export class ReferenceItem implements IReferenceItem {
   @observable accessor path: string = '';
-  @observable accessor info: number = 0;
-  @observable accessor strength: number = 0;
-  @observable accessor description: string = '';
+  @observable accessor fidelity: number = 1.0;        // 기본값: 최대 충실도
+  @observable accessor styleAware: boolean = true;    // 기본값: 스타일 포함
 
   static fromJSON(json: IReferenceItem): IReferenceItem {
     const item = new ReferenceItem();
@@ -650,9 +648,8 @@ export class ReferenceItem implements IReferenceItem {
   toJSON(): IReferenceItem {
     return {
       path: this.path,
-      info: this.info,
-      strength: this.strength,
-      description: this.description,
+      fidelity: this.fidelity,
+      styleAware: this.styleAware,
     };
   }
 }
