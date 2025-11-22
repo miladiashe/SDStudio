@@ -124,6 +124,7 @@
     "libsodium-wrappers-sumo": "^0.7.13",
     "memoize-one": "^6.0.0",
     "mobile-drag-drop": "^v2.3.0-rc.2",
+    "mobx": "^6.15.0",
     "mobx-react-lite": "^4.0.7",
     "mobx-state-tree": "^6.0.1",
     "nan": "^2.20.0",
