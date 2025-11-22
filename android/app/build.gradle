@@ -33,6 +33,16 @@ android {
         path "src/main/jni/CMakeLists.txt"
       }
     }
+
+    // JVM 타겟 통일 (Java & Kotlin 모두 17)
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 }
 
 repositories {
